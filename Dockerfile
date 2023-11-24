@@ -9,6 +9,8 @@ COPY go.mod .
 COPY src /app
  
 # Installs Go dependencies
+RUN go get -u go.mongodb.org/mongo-driver/mongo
+RUN go get -u github.com/gin-gonic/gin
  
 # Builds your app with optional configuration
 RUN go build -o porcupine
