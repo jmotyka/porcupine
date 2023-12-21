@@ -103,5 +103,7 @@ Test harness can be ran after building the Docker image by using:
 make test
 ```
 
-There are no unit tests at the moment as the logic between the application layer and data model is simplistic.
+There are no unit tests at the moment as the logic between the application layer and data model is simplistic.  The integration tests strive to ensure 2 primary goals:
+1. GET, POST, and PUT requests return the appropriate status code.
+2. A 400 error is thrown if a POST/PUT request is made with a duplicated email `String`.
 
