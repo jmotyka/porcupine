@@ -9,9 +9,6 @@ build:
 	docker build -t porcupine .
 
 run:
-	docker run -v $(pwd):/app -p 8080:8080 -d porcupine ./porcupine
-
-run-interactive:
-	docker run -v $(pwd):/app -p 8080:8080 -it porcupine bash
+	docker run -v $(pwd):/app -p 8080:8080 porcupine
 
 .PHONY: all build test clean run deps
