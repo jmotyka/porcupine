@@ -82,6 +82,21 @@ You should be able to issue a curl command for example patients that have been p
 } 
 ```
 
+## Data Model
+Currently there is one table/model: `Patient()`, which contains the following fields (along with getters/setters):
+1. `id`: `int`
+2. `name`: `String`
+    - Must be non-empty 
+3. `email`: `String`
+    - Must be non-empty 
+4. `date_of_birth`: `LocalDateTime`
+5. `next_appointment`: `LocalDateTime` | `null`
+6. `created_at`: `LocalDateTime`
+    - Set on creation
+7. `modified_at`: `LocalDateTime`
+    - Updated on every change to the record. Initially set to `null`
+
+
 ## Integration Tests
 Test harness can be ran after building the Docker image by using:
 ```
