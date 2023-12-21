@@ -11,4 +11,7 @@ build:
 run:
 	docker run -v $(pwd):/app -p 8080:8080 porcupine
 
+test:
+	docker run -v $(pwd):/app porcupine gradle test
+
 .PHONY: all build test clean run deps
