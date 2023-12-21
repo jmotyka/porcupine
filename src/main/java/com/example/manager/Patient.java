@@ -31,10 +31,12 @@ public class Patient {
     @Column(name = "email", unique = true, nullable = false, updatable = true)
     private String email;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @NotEmpty
     @Column(name = "date_of_birth", nullable = false, updatable = true)
     private LocalDateTime dateOfBirth;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "next_appointment", nullable = true, updatable = true)
     private LocalDateTime nextAppointment;
 
@@ -127,14 +129,11 @@ public class Patient {
         return Objects.equals(id, patient.id) &&
                 Objects.equals(name, patient.name) &&
                 Objects.equals(email, patient.email) &&
-                Objects.equals(dateOfBirth, patient.dateOfBirth) &&
-                Objects.equals(nextAppointment, patient.nextAppointment) &&
-                Objects.equals(createdAt, patient.createdAt) &&
-                Objects.equals(modifiedAt, patient.modifiedAt);
+                Objects.equals(dateOfBirth, patient.dateOfBirth);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, dateOfBirth, nextAppointment, createdAt, modifiedAt);
+        return Objects.hash(id, name, email, dateOfBirth);
     }
 }
