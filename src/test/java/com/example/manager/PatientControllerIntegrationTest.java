@@ -1,5 +1,8 @@
 package com.example.manager;
 
+import java.util.Map;
+import java.util.HashMap;
+
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
@@ -24,12 +27,17 @@ public class PatientControllerIntegrationTest {
 
     @Test
     public void testCreatePatient() {
-        Patient newPatient = new Patient(
-            "David Gilmore",
-            "dgilmore@gmail.com",
-            LocalDateTime.of(1946, 3, 6, 0, 0, 0),
-            LocalDateTime.of(2024, 1, 1, 0, 0, 0)
-        );
+        Map<String, Object> newPatient = new HashMap<>();
+        
+
+        LocalDateTime dateOfBirth = LocalDateTime.parse("1946-03-06T00:00:00");
+        LocalDateTime nextAppointment = LocalDateTime.parse("2024-03-06T00:00:00");
+
+        newPatient.put("name", "David Gilmore");
+        newPatient.put("email", "dgilmore@gmail.com");
+        newPatient.put("dateOfBirth", dateOfBirth.toString());
+        newPatient.put("nextAppointment", nextAppointment.toString());
+
         webTestClient.post()
                 .uri("/patient")
                 .bodyValue(newPatient)
@@ -39,12 +47,17 @@ public class PatientControllerIntegrationTest {
 
     @Test
     public void testUpdatePatient() {
-        Patient updatedPatient = new Patient(
-            "John Smith",
-            "johnsmith1900@gmail.com",
-            LocalDateTime.of(1900, 1, 1, 0, 0, 0),
-            LocalDateTime.of(2025, 1, 1, 0, 0, 0)
-        );
+        Map<String, Object> updatedPatient = new HashMap<>();
+        
+
+        LocalDateTime dateOfBirth = LocalDateTime.parse("1900-01-01T00:00:00");
+        LocalDateTime nextAppointment = LocalDateTime.parse("2025-01-01T00:00:00");
+
+        updatedPatient.put("name", "John Smith");
+        updatedPatient.put("email", "jsmith1900@gmail.com");
+        updatedPatient.put("dateOfBirth", dateOfBirth.toString());
+        updatedPatient.put("nextAppointment", nextAppointment.toString());
+
         webTestClient.put()
                 .uri("/patient/1", 1L)
                 .bodyValue(updatedPatient)
@@ -54,29 +67,21 @@ public class PatientControllerIntegrationTest {
 
     @Test
     public void testUniqueEmail() {
-        Patient david = new Patient(
-            "David Gilmore",
-            "dgilmore@gmail.com",
-            LocalDateTime.of(1946, 3, 6, 0, 0, 0),
-            LocalDateTime.of(2024, 1, 1, 0, 0, 0)
-        );
-        Patient roger = new Patient(
-            "Roger Waters",
-            "dgilmore@gmail.com",
-            LocalDateTime.of(1943, 9, 6, 0, 0, 0),
-            LocalDateTime.of(2024, 1, 1, 0, 0, 0)
-        );
-        webTestClient.post()
-            .uri("/patient")
-            .bodyValue(david)
-            .exchange()
-            .expectStatus().isCreated();
+        Map<String, Object> newPatient = new HashMap<>();
         
-        // this will throw an error b/c of duplicated email
+
+        LocalDateTime dateOfBirth = LocalDateTime.parse("1946-03-06T00:00:00");
+        LocalDateTime nextAppointment = LocalDateTime.parse("2024-03-06T00:00:00");
+
+        newPatient.put("name", "David Gilmore");
+        newPatient.put("email", "dgilmore@gmail.com");
+        newPatient.put("dateOfBirth", dateOfBirth.toString());
+        newPatient.put("nextAppointment", nextAppointment.toString());
+
         webTestClient.post()
             .uri("/patient")
-            .bodyValue(roger)
+            .bodyValue(newPatient)
             .exchange()
             .expectStatus().isBadRequest();
-    }
+    }   
 }

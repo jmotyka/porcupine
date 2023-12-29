@@ -3,6 +3,12 @@ package com.example.manager;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
@@ -32,24 +38,34 @@ public class Patient {
     private String email;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     @NotEmpty
     @Column(name = "date_of_birth", nullable = false, updatable = true)
     private LocalDateTime dateOfBirth;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Column(name = "next_appointment", nullable = true, updatable = true)
     private LocalDateTime nextAppointment;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Column(name = "modified_at", nullable = true, updatable = true)
     private LocalDateTime modifiedAt;
 
     // Constructors
-    Patient() {}
+    Patient() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     Patient(
         String name,

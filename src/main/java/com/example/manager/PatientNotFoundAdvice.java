@@ -12,7 +12,7 @@ class PatientNotFoundAdvice {
     @ResponseBody
     @ExceptionHandler(PatientNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String employeeNotFoundHandler(PatientNotFoundException ex) {
+    String patientFoundHandler(PatientNotFoundException ex) {
         return ex.getMessage();
     }
 }
